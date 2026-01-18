@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dataCounter{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+
+  gap:1.2rem;
+  flex-direction:column;
+}
+
+.steps, .counts {
+  display: flex;
+  align-items:center;
+
+  margin:1rem;
+}
+
+
+button{
+  padding:.3rem;
+ cursor:pointer;
+}
