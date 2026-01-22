@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./index.css";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: true },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-];
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: true },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+// ];
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -16,11 +16,20 @@ export default function App() {
     });
   }
 
+  function handleDeleteItem(id) {
+    // console.log(id);
+    setItems(function (items) {
+      return items.filter(function (item) {
+        return item.id !== id;
+      });
+    });
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList items={items} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -88,12 +97,12 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul>
         {items.map(function (item) {
-          return <Item item={item} key={item.id} />;
+          return <Item item={item} onDeleteItem={onDeleteItem} key={item.id} />;
         })}
       </ul>
     </div>
@@ -102,13 +111,13 @@ function PackingList({ items }) {
 
 // item is the destructed  prop name
 //function Item({item}){}
-function Item(props) {
+function Item({ item, onDeleteItem }) {
   return (
     <li>
-      <span style={props.item.packed ? { textDecoration: "line-through" } : {}}>
-        {props.item.quantity} {props.item.description}{" "}
+      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
+        {item.quantity} {item.description}{" "}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
