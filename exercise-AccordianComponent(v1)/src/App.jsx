@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 
 const faqs = [
   {
@@ -15,44 +15,40 @@ const faqs = [
   },
 ];
 
-
-export default function App(){
+export default function App() {
   return (
     <div>
-    <Accordion  />
+      <Accordion />
     </div>
-  )
+  );
 }
 
-function Accordion(){
-
- const [item,setItem] = useState([]);
-
+function Accordion() {
   return (
-  <div className="accordion">
-    <ul className='content-box'>
-    {
-      faqs.map(function(faq){
-        return <Item faq={faq}  key={faq.title}/>
-      })
-    }
-    </ul>
+    <div className="accordion">
+      {faqs.map(function (faq, i) {
+        return <Item faq={faq} key={faq.title} index={i} />;
+      })}
     </div>
-  )
+  );
 }
 
+function Item({ faq, index }) {
+  const [isOpen, setIsOpen] = useState(false);
 
-function Item({faq}){
+  function handleToggle() {
+    setIsOpen(function (isOpen) {
+      return !isOpen;
+    });
+  }
+
   return (
-    <div className="item">
-    
-    <p className="number"> </p>
-    <p className="title">{faq.title}</p>
-     <p className="icon">+</p>
-    <p className="text">{faq.text}</p>
-   
-    
-    
+    <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
+      <p className="number">{index + 1}</p>
+      <p className="title">{faq.title}</p>
+      <p className="icon">{isOpen ? "-" : "+"}</p>
+
+      {isOpen && <div className="content-box">{faq.text}</div>}
     </div>
-  )
+  );
 }
