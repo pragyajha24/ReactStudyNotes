@@ -43,7 +43,7 @@ function Item({ faq, index }) {
   }
 
   return (
-    <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
+    <div className={`item ${isOpen ? "open" : " "}`} onClick={handleToggle}>
       <p className="number">{index + 1}</p>
       <p className="title">{faq.title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
