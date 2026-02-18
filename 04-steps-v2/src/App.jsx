@@ -91,10 +91,10 @@ function Steps() {
 
 function StepMessage({ step, children }) {
   return (
-    <h4 className="message">
-      <p> Step {step} </p>
+    <div className="message">
+      <h3> Step {step} </h3>
       {children}
-    </h4>
+    </div>
   );
 }
 
