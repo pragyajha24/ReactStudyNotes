@@ -47,7 +47,7 @@ function AccordionItem({ faq, index, curOpen, onOpen }) {
   const isOpen = index === curOpen;
 
   function handleToggle() {
-    onOpen(index);
+    onOpen(isOpen ? null : index);
   }
 
   return (
