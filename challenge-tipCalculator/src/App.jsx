@@ -10,20 +10,24 @@ export default function App() {
 
 function TipCalculator() {
 
-
   // lifting the state
  const [bill, setBill] = useState("");
-   const [tip, setTip] = useState(0);
+  
+  const [myTip    , setMyTip]     = useState(0);
+  const [friendTip, setFriendTip] = useState(0);
+
+  const tip = bill * ((myTip + friendTip)/2 / 100);
 
   return (
     <div>
       <h1>Tip calculator</h1>
       <Bill  bill={bill} setBill={setBill} />
-      <Tip tip={tip} setTip={setTip} >
+
+      <Tip tip={myTip} setTip={setMyTip} >
         <p>How did you like the service ?</p>
       </Tip>
 
-      <Tip tip={tip} setTip={setTip}>
+      <Tip tip={friendTip} setTip={setFriendTip}>
         <p>How did your friend like the service ? </p>{" "}
       </Tip>
 
@@ -42,6 +46,7 @@ function Bill({bill,setBill}) {
       <p>How much was the bill ?</p>
       <input
         type="number"
+        placeholder="Enter your bill"
         value={bill}
         onChange={(e) => setBill(Number(e.target.value))}
       ></input>
@@ -49,8 +54,9 @@ function Bill({bill,setBill}) {
   );
 }
 
-function Tip({ children,tip ,setTip}) {
-  // const [tip, setTip] = useState(0);
+function Tip({ children,tip,setTip}) {
+  // const [myTip, setMyTip] = useState(0);
+  //const [friendTip, setFriendTip] = useState(0);
 
   return (
     <div>
@@ -70,7 +76,7 @@ function TotalBill({bill,tip}) {
   return (
     <div>
       <h2>
-      You pay({bill} + ${tip})
+      You pay {bill+tip} (${bill} + ${tip})
       
       </h2>
     </div>
