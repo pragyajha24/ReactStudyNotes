@@ -37,9 +37,13 @@ function TipCalculator() {
         <p>How did your friend like the service ? </p>{" "}
       </Tip>
 
-      <TotalBill bill={bill} tip={tip} />
-
-      <Reset onreset={handleReset} />
+     {bill > 0 && (
+           <> 
+            <TotalBill bill={bill} tip={tip} />
+            <Reset onreset={handleReset} />
+             </> 
+      )}
+     
     </div>
   );
 }
