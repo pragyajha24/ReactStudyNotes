@@ -18,6 +18,12 @@ function TipCalculator() {
 
   const tip = bill * ((myTip + friendTip)/2 / 100);
 
+  function handleReset(){
+    setBill("");
+    setMyTip(0);
+    setFriendTip(0);
+  }
+
   return (
     <div>
       <h1>Tip calculator</h1>
@@ -33,7 +39,7 @@ function TipCalculator() {
 
       <TotalBill bill={bill} tip={tip} />
 
-      <Reset />
+      <Reset onreset={handleReset} />
     </div>
   );
 }
@@ -83,9 +89,10 @@ function TotalBill({bill,tip}) {
   );
 }
 
-function Reset(){
+function Reset({onreset}){
+
   return (
-    <button>
+    <button onClick={onreset}>
     Reset
     </button>
   )
