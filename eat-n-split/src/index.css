@@ -58,11 +58,54 @@ h6 {
   isolation: isolate;
 }
 
+:root {
+  --color-lightest: #fff4e6;
+  --color-light: #ffe8cc;
+  --color-medium: #ffa94d;
+  --color-dark: #ff922b;
+}
+
 .app {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   margin-top: 7rem;
 
   gap: 3rem;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.friends {
+}
+
+.addfriendform {
+  display: grid;
+  gap: 1rem;
+}
+
+.formfriend {
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  border: none;
+  background-color: var(--color-medium);
+  color: #343a40;
+  border-radius: 7px;
+  padding: 0.3rem 0.6rem;
+  font-weight: bold;
+  cursor: pointer;
 }
