@@ -65,40 +65,39 @@ h6 {
   --color-dark: #ff922b;
 }
 
-.app {
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  margin-top: 7rem;
-
-  gap: 3rem;
-}
-
-.left {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.flex {
+body {
+  height: 100vh;
+  color: #495057;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
 }
 
-.friends {
-}
+.app {
+  min-height: 66vh;
+  /* display: grid;
+  grid-template-columns: 34rem 44rem; */
 
-.addfriendform {
+  /* margin-top: 7rem;
+  align-items: center;
+  gap: 3rem;
+
+  padding-left: 5rem; */
+
   display: grid;
-  gap: 1rem;
+  grid-template-columns: 34rem 44rem;
+  column-gap: 4rem;
+  align-items: start;
 }
 
-.formfriend {
-  display: flex;
-  gap: 1rem;
-}
+/* @media screen and (max-width: 728px) {
+  .app {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+} */
 
 button {
   border: none;
@@ -108,4 +107,34 @@ button {
   padding: 0.3rem 0.6rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--color-dark);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.sidebar li {
+  list-style: none;
+}
+
+.add-friend-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+}
+
+.form-split-bill {
+  display: grid;
+  grid-template-columns: 1fr 10rem;
+  padding: 3.2rem 4rem;
+  gap: 1.2rem;
 }
