@@ -23,7 +23,10 @@ const textStyle ={
     margin: '0'
 }
 
-export default function StarRating({maxRating}){  
+ {/* if someone used this component without specifing max rating property , so to solve this  case we will define default value of the property*/}
+// In JS whenever we destructure an object , we can set a default value 
+//here we are destructing the prop object
+export default function StarRating({maxRating = 5}){  
     return (
         <div style={containerStyle}>
         {   /* dynamically generating the star elements instead of writing with hand , that's the only way we could have sometimes 5 stars or 10 stars or any other number*/}
