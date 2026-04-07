@@ -29,13 +29,15 @@ const textStyle ={
 export default function StarRating({maxRating = 5}){  
     return (
         <div style={containerStyle}>
-        {   /* dynamically generating the star elements instead of writing with hand , that's the only way we could have sometimes 5 stars or 10 stars or any other number*/}
+
+    {/* dynamically generating the star elements instead of writing with hand , that's the only way we could have sometimes 5 stars or 10 stars or any other number*/ }
         <div style={starContainerStyle}>
-        {/* creates a empty array with 5 elements that we can immediately loop over, by passing a function */}
-        {/* i+1 as i is zero based (Array)  */}
+
+  {/*  creates a empty array with 5 elements that we can immediately loop over, by passing a function */ }
+  {/* i+1 as i is zero based (Array)  */}
         {Array.from({length:maxRating}, (_,i) => <span>S{i+1} </span>)}
          </div>
         <p style={textStyle}>10 </p>
          </div>
     )
-}
+} 
