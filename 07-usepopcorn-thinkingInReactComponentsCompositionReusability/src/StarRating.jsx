@@ -6,6 +6,8 @@
 
 */
 
+import { useState } from "react";
+
 const containerStyle = {
   display: "flex",
   alignItems: "center",
@@ -28,6 +30,12 @@ const textStyle = {
 // In JS whenever we destructure an object , we can set a default value
 //here we are destructing the prop object
 export default function StarRating({ maxRating = 5 }) {
+  const [rating, setRating] = useState(0);
+
+  function handleRating(rating) {
+    setRating(rating);
+  }
+
   return (
     <div style={containerStyle}>
       {/* dynamically generating the star elements instead of writing with hand , that's the only way we could have sometimes 5 stars or 10 stars or any other number*/}
@@ -37,10 +45,10 @@ export default function StarRating({ maxRating = 5 }) {
 
         {Array.from({ length: maxRating }, (_, i) => (
           //<span>S{i+1}</span>
-          <Star key={i} />
+          <Star key={i} onRate={() => handleRating(i + 1)} />
         ))}
       </div>
-      <p style={textStyle}>10 </p>
+      <p style={textStyle}> {rating || ""} </p>
     </div>
   );
 }
@@ -54,9 +62,9 @@ const starStyle = {
 
 // creating stars
 //called this under star rating component
-function Star() {
+function Star({ onRate }) {
   return (
-    <span role="button" style={starStyle}>
+    <span role="button" style={starStyle} onClick={onRate}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
