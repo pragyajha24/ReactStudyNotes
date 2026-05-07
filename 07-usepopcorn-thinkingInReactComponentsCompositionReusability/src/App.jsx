@@ -59,26 +59,22 @@ export default function App() {
         <NumResults movies={movies} />
       </NavBar>
 
-      <Main >
+      <Main>
         <Box>
-           <MovieList  movies={movies} />
+          <MovieList movies={movies} />
         </Box>
 
-        <Box> 
-           <WatchedSummary watched={watched} />
-           <WatchedMoviesList watched={watched} />
-       </Box>
+        <Box>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </Box>
       </Main>
     </>
   );
 }
 
 function NavBar({ children }) {
-  return (
-    <nav className="nav-bar">
-     {children}
-    </nav>
-  );
+  return <nav className="nav-bar">{children}</nav>;
 }
 
 function Logo() {
@@ -113,11 +109,7 @@ function NumResults({ movies }) {
 }
 
 function Main({ children }) {
-  return (
-    <main className="main">
-         {children}
-    </main>
-  );
+  return <main className="main">{children}</main>;
 }
 
 function Box({ children }) {
@@ -132,11 +124,10 @@ function Box({ children }) {
         {isOpen1 ? "-" : "+"}
       </button>
 
-      {isOpen1 &&  children }
+      {isOpen1 && children}
     </div>
   );
 }
-
 
 /*
 function ListBox({ children }) {
@@ -155,7 +146,7 @@ function ListBox({ children }) {
     </div>
   );
 }
-*/  
+*/
 
 function MovieList({ movies }) {
   return (
@@ -185,7 +176,6 @@ function Movie({ movie }) {
 const average = function (arr) {
   return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 };
-
 
 /*
 function WatchedBox() {
