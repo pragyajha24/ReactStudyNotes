@@ -29,23 +29,35 @@ export default function App() {
 }
 
 function Tabbed({ content }) {
+  // state to display different tab data - store the currently selected tab index
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <div>
       <div className="tabs">
-        <Tab num={0} />
-        <Tab num={1} />
-        <Tab num={2} />
-        <Tab num={3} />
+        {/* set the tab clicked as active tab */}
+        <Tab num={0} onClick={setActiveTab} />
+        <Tab num={1} onClick={setActiveTab} />
+        <Tab num={2} onClick={setActiveTab} />
+        <Tab num={3} onClick={setActiveTab} />
 
         {/* pass the first item from the content array into the component */}
-        <TabContent content={content[0]} />
+        {/* <TabContent content={content[0]} /> */}
+
+        {/* show content of active tab */}
+        <TabContent content={content[activeTab]} />
       </div>
     </div>
   );
 }
 
-function Tab({ num }) {
-  return <button className="tab"> Tab{num + 1} </button>;
+function Tab({ num, onClick }) {
+  return (
+    <button className="tab" onClick={() => onClick(num)}>
+      {" "}
+      Tab{num + 1}{" "}
+    </button>
+  );
 }
 
 function TabContent({ content }) {
@@ -67,3 +79,14 @@ function TabContent({ content }) {
     </div>
   );
 }
+
+// When i click on Tab button , the tab button num gets selected and that puts thst clicked tab as active tab.
+//Click happens later -> React runs the function -> onClick(num) -> setActiveTab(num)
+
+// function DifferentContent() {
+//   return (
+//     <div className="tab-content">
+//       <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
+//     </div>
+//   );
+// }
