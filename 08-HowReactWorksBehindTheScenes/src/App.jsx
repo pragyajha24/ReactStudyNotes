@@ -45,7 +45,7 @@ function Tabbed({ content }) {
 }
 
 function Tab({ num }) {
-  return <button> Tab{num + 1} </button>;
+  return <button className="tab"> Tab{num + 1} </button>;
 }
 
 function TabContent({ content }) {
