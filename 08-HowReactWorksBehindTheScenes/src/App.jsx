@@ -80,6 +80,13 @@ function TabContent({ itemContent }) {
   //state to show tab content detals and to hide it
   const [showDetails, setShowDetails] = useState(true);
 
+  //state to update , set likes
+  const [likes, setLikes] = useState(0);
+
+  function handleLikesInc() {
+    setLikes(likes + 1);
+  }
+
   return (
     <div className="tab-content">
       <h4>{itemContent.summary}</h4>
@@ -95,8 +102,8 @@ function TabContent({ itemContent }) {
         </button>
 
         <div className="hearts-counter">
-          <span>0 ❤️</span>
-          <button>+</button>
+          <span>{likes} ❤️</span>
+          <button onClick={handleLikesInc}>+</button>
           <button>+++</button>
         </div>
       </div>
