@@ -41,11 +41,17 @@ function Tabbed({ content }) {
         <Tab num={2} onClick={setActiveTab} />
         <Tab num={3} onClick={setActiveTab} />
 
-        {/* pass the first item from the content array into the component */}
+        {/*////// pass the first item from the content array into the component */}
         {/* <TabContent content={content[0]} /> */}
 
-        {/* show content of active tab */}
-        <TabContent content={content[activeTab]} />
+        {/* //////show content of active tab */}
+        {/* <TabContent content={content[activeTab]} /> */}
+
+        {activeTab <= 2 ? (
+          <TabContent itemContent={content.at(activeTab)} />
+        ) : (
+          <DifferentContent />
+        )}
       </div>
     </div>
   );
@@ -60,11 +66,11 @@ function Tab({ num, onClick }) {
   );
 }
 
-function TabContent({ content }) {
+function TabContent({ itemContent }) {
   return (
     <div className="tab-content">
-      <h4>{content.summary}</h4>
-      <p>{content.details}</p>
+      <h4>{itemContent.summary}</h4>
+      <p>{itemContent.details}</p>
 
       <div className="hearts-counter">
         <span>0 ❤️</span>
@@ -83,10 +89,10 @@ function TabContent({ content }) {
 // When i click on Tab button , the tab button num gets selected and that puts thst clicked tab as active tab.
 //Click happens later -> React runs the function -> onClick(num) -> setActiveTab(num)
 
-// function DifferentContent() {
-//   return (
-//     <div className="tab-content">
-//       <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
-//     </div>
-//   );
-// }
+function DifferentContent() {
+  return (
+    <div className="tab-content">
+      <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
+    </div>
+  );
+}
