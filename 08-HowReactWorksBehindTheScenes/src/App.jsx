@@ -36,10 +36,10 @@ function Tabbed({ content }) {
     <div>
       <div className="tabs">
         {/* set the tab clicked as active tab */}
-        <Tab num={0} onClick={setActiveTab} />
-        <Tab num={1} onClick={setActiveTab} />
-        <Tab num={2} onClick={setActiveTab} />
-        <Tab num={3} onClick={setActiveTab} />
+        <Tab num={0} activeTab={activeTab} onClick={setActiveTab} />
+        <Tab num={1} activeTab={activeTab} onClick={setActiveTab} />
+        <Tab num={2} activeTab={activeTab} onClick={setActiveTab} />
+        <Tab num={3} activeTab={activeTab} onClick={setActiveTab} />
 
         {/*////// pass the first item from the content array into the component */}
         {/* <TabContent content={content[0]} /> */}
@@ -57,11 +57,21 @@ function Tabbed({ content }) {
   );
 }
 
-function Tab({ num, onClick }) {
+function Tab({ num, onClick, activeTab }) {
   return (
-    <button className="tab" onClick={() => onClick(num)}>
-      {" "}
-      Tab{num + 1}{" "}
+    // It this tab is active tab, use "tab active" classname otherwise 'tab'.
+    //for tab you click , becomes the active tab .
+    //but this line runs for every tab, ot just clicked tab.
+    //because react re-renders Tabbed and inside tabbe you render all tabs.
+
+    //the information about which tab is active lives in the parent.
+    //so passed activeTab as prop
+
+    <button
+      className={activeTab === num ? "tab active" : "tab"}
+      onClick={() => onClick(num)}
+    >
+      Tab{num + 1}
     </button>
   );
 }
