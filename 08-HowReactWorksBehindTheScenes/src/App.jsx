@@ -77,15 +77,28 @@ function Tab({ num, onClick, activeTab }) {
 }
 
 function TabContent({ itemContent }) {
+  //state to show tab content detals and to hide it
+  const [showDetails, setShowDetails] = useState(true);
+
   return (
     <div className="tab-content">
       <h4>{itemContent.summary}</h4>
-      <p>{itemContent.details}</p>
 
-      <div className="hearts-counter">
-        <span>0 ❤️</span>
-        <button>+</button>
-        <button>+++</button>
+      {showDetails && <p>{itemContent.details}</p>}
+
+      <div className="tab-actions">
+        {/* When clicked reverse the value of showDetails , every click toggles the value */}
+        {/* h -> current value of showDetails */}
+        <button onClick={() => setShowDetails((h) => !h)}>
+          {/* ternary operator , hide details if true otherwise show */}
+          {showDetails ? "Hide" : "Show"} details
+        </button>
+
+        <div className="hearts-counter">
+          <span>0 ❤️</span>
+          <button>+</button>
+          <button>+++</button>
+        </div>
       </div>
 
       <div className="tab-undo">
