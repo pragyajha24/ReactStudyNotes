@@ -40,19 +40,18 @@ function Tabbed({ content }) {
         <Tab num={1} activeTab={activeTab} onClick={setActiveTab} />
         <Tab num={2} activeTab={activeTab} onClick={setActiveTab} />
         <Tab num={3} activeTab={activeTab} onClick={setActiveTab} />
-
-        {/*////// pass the first item from the content array into the component */}
-        {/* <TabContent content={content[0]} /> */}
-
-        {/* //////show content of active tab */}
-        {/* <TabContent content={content[activeTab]} /> */}
-
-        {activeTab <= 2 ? (
-          <TabContent itemContent={content.at(activeTab)} />
-        ) : (
-          <DifferentContent />
-        )}
       </div>
+      {/*////// pass the first item from the content array into the component */}
+      {/* <TabContent content={content[0]} /> */}
+
+      {/* //////show content of active tab */}
+      {/* <TabContent content={content[activeTab]} /> */}
+
+      {activeTab <= 2 ? (
+        <TabContent itemContent={content.at(activeTab)} key={content.at(activeTab).summary}  />
+      ) : (
+        <DifferentContent />
+      )}
     </div>
   );
 }
@@ -126,3 +125,29 @@ function DifferentContent() {
     </div>
   );
 }
+
+
+
+/* 
+Lecture - 132
+1. so in all the tabbed component , component state is preserved during re-renders as long as the component type remains the same.
+2. When I go from TAB 1 to TAB 2 , the component state does not change, because both are rendered in TABCONTENT component. 
+3. The state changes when component type is change,when clicked on TAB 4 the component type is differentconent component.
+4. Component type is same, so state persists across re-renders. And stays at exact same place in component tree.
+5. It only reset when changed to different component type.
+6. Then , our state got lost, so tab 1 to tab 3 state remains same, tab 4 it changes because of different component type.
+
+7. basically, when we go to tab 4 the old actions like number of likes in tabs is removed, state is reset.
+8. Now, adding key prop to Tabcontent component, after this the key will change between renders.
+9. meaning,that now  increasing tab 1 number of likes ,going to tab 2 will rest tab 1 number of likes to back to 0 . key changes across render that will reset the state in all tabs.
+10. the change does not stay is gets destroyed as we move to different tab component and react knows it by different key prop they received.
+11. component state is reset. react sees all tabs as different now.
+*/
+
+
+/*  
+To maintain separate states for each tab, you would need to manage the state externally,
+ perhaps using an array of objects to track the likes and visibility status for each tab individually. 
+ This way, switching between tabs wouldn't reset the state because you will be storing and retrieving the individual states based on
+  the selected tab.
+*/
