@@ -48,7 +48,10 @@ function Tabbed({ content }) {
       {/* <TabContent content={content[activeTab]} /> */}
 
       {activeTab <= 2 ? (
-        <TabContent itemContent={content.at(activeTab)} key={content.at(activeTab).summary}  />
+        <TabContent
+          itemContent={content.at(activeTab)}
+          key={content.at(activeTab).summary}
+        />
       ) : (
         <DifferentContent />
       )}
@@ -82,8 +85,27 @@ function TabContent({ itemContent }) {
   //state to update , set likes
   const [likes, setLikes] = useState(0);
 
+  //each time component gets re-renders and so then each time
+  // this console.log will log render to the console.
+  //each time we click on component which creates some change ,
+  // component re-renders and this gets log
+  console.log("COMPONENT IS RENDER");
+
   function handleLikesInc() {
     setLikes(likes + 1);
+  }
+
+  // lecture-136 state update batching in practice
+  // undo button handler
+  function handleUndo() {
+    setShowDetails(true);
+    setLikes(0);
+    //to show state updating in asynchronous
+    //it keeps the current state like value instead of 0
+    console.log("state updating is ASYNCHRONOUS");
+    //here we still gets old likes state, because its only updated
+    //after re-rendering, not immediately after we call the function
+    console.log(likes);
   }
 
   return (
@@ -108,7 +130,7 @@ function TabContent({ itemContent }) {
       </div>
 
       <div className="tab-undo">
-        <button>Undo</button>
+        <button onClick={handleUndo}>Undo</button>
         <button>Undo in 2s</button>
       </div>
     </div>
@@ -126,8 +148,6 @@ function DifferentContent() {
   );
 }
 
-
-
 /* 
 Lecture - 132
 1. so in all the tabbed component , component state is preserved during re-renders as long as the component type remains the same.
@@ -143,7 +163,6 @@ Lecture - 132
 10. the change does not stay is gets destroyed as we move to different tab component and react knows it by different key prop they received.
 11. component state is reset. react sees all tabs as different now.
 */
-
 
 /*  
 To maintain separate states for each tab, you would need to manage the state externally,
