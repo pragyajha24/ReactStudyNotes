@@ -160,6 +160,19 @@ function TabContent({ itemContent }) {
 
   */
 
+  ////learng automatic batching,
+  // here handleUndo is not a event handler function,intead
+  //it's simply a function that gets call at later time
+  function handleUndoLater() {
+    setTimeout(handleUndo, 2000);
+  }
+  /*
+  after 2 seconds, state was updated and our component was only
+    rendered once
+  it proves, in REACT 18 batching happens not only inside 
+  event handlers but inside a set timeout.
+  */
+
   return (
     <div className="tab-content">
       <h4>{itemContent.summary}</h4>
@@ -183,7 +196,7 @@ function TabContent({ itemContent }) {
 
       <div className="tab-undo">
         <button onClick={handleUndo}>Undo</button>
-        <button>Undo in 2s</button>
+        <button onClick={handleUndoLater}>Undo in 2s</button>
       </div>
     </div>
   );
