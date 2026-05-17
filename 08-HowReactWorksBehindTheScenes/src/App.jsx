@@ -92,10 +92,15 @@ function TabContent({ itemContent }) {
   console.log("COMPONENT IS RENDER");
 
   function handleLikesInc() {
-    setLikes(likes + 1);
+    // setLikes(likes + 1);
+
+    //always use a callback function
+    setLikes(function (likes) {
+      return likes + 1;
+    });
   }
 
-  // lecture-136 state update batching in practice
+  // lecture-136 state update batching in practice - I
   // undo button handler
   function handleUndo() {
     setShowDetails(true);
@@ -107,6 +112,53 @@ function TabContent({ itemContent }) {
     //after re-rendering, not immediately after we call the function
     console.log(likes);
   }
+
+  /////this works ,but we are understanding batching so not doing this way
+  // function handleTripleInc() {
+  //   setLikes(likes + 3);
+  // }
+
+  function handleTripleInc() {
+    // setLikes(likes + 1);
+    // console.log(likes);
+    // setLikes(likes + 1);
+    // setLikes(likes + 1);
+
+    // callback function to update state based on current state value
+    //initally likes was 0 , then it became 1
+    setLikes(function (likes) {
+      return likes + 1;
+    });
+    //here, 1+1 , became 2
+    setLikes(function (likes) {
+      return likes + 1;
+    });
+    //here , 2+1 , became 3
+    setLikes(function (likes) {
+      return likes + 1;
+    });
+  }
+
+  /* 
+  lecture-136 - II
+  when we click on the triple+ btn we don't get increase by 3 but only 1,why?
+  1. in handleTripleInc function, at first likes is 0 so ,
+     setLikes(likes+1) is 0+1 which is 0 great.
+  2. the values of likes in next line is still 0.That's because the
+     state update is asynchronous.So, we do not get access to the
+     new state value after the first setLikes code.
+     Here the state is now stale.
+
+  3.How could we make this work ,if we really wanted to update the
+    state three times?in another way of likes+3
+
+ 4.All the time we were updating state based on the current state,
+   we would use a callback function instead of just a value.
+
+  so each time, we set state based on current state or previous
+  state, always use a callback function 
+
+  */
 
   return (
     <div className="tab-content">
@@ -125,7 +177,7 @@ function TabContent({ itemContent }) {
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleLikesInc}>+</button>
-          <button>+++</button>
+          <button onClick={handleTripleInc}>+++</button>
         </div>
       </div>
 
