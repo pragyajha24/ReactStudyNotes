@@ -8,10 +8,11 @@ export default function App() {
     <div className="app">
       <div className="sidebar">
         <FriendList />
-        <FormAddFriend />
+      
+        {/* <FormAddFriend /> */}
       </div>
 
-      <FormSplitBill />
+      {/* <FormSplitBill /> */}
     </div>
   );
 }

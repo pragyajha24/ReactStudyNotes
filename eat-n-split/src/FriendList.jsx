@@ -19,37 +19,62 @@ const initialFriends = [
   },
 ];
 
-export default function FriendList() {
-  return (
-    <ul>
-      {initialFriends.map(function (friend) {
-        return <List friend={friend} key={friend.id} />;
-      })}
 
-      <button>Select</button>
+
+// function List({ friend }) {
+//   return (
+//     <li>
+//       <img src={friend.image} alt={friend.name} />
+//       <h3>{friend.name}</h3>
+
+//       {friend.balance < 0 && (
+//         <p>
+//           You own {friend.name} {Math.abs(friend.balance)}€
+//         </p>
+//       )}
+
+//       {friend.balance > 0 && (
+//         <p>
+//           {friend.name} owes you {Math.abs(friend.balance)}€
+//         </p>
+//       )}
+
+//       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
+//     </li>
+//   );
+// }
+
+
+export default function FriendList(){
+  return (
+    <ul className="list"> 
+    
+     {initialFriends.map(function(friend){
+      return <List friend={friend} key={friend.id} />
+     }) }
+
+     <button className="button"> Add Friend </button>
     </ul>
-  );
+  )
 }
 
-function List({ friend }) {
+function List({friend}){
   return (
-    <li>
-      <img src={friend.image} alt={friend.name} />
-      <h3>{friend.name}</h3>
+    <li> 
+    <img src={friend.image} />
+    
+    <div> 
+    <p> {friend.name} </p>
+ 
+ {friend.balance > 0 && <p> {friend.name} owes you {Math.abs(friend.balance)} </p>}
 
-      {friend.balance < 0 && (
-        <p>
-          You own {friend.name} {Math.abs(friend.balance)}€
-        </p>
-      )}
+ {friend.balance < 0 && <p> You own {friend.name} {Math.abs(friend.balance)} </p>}
 
-      {friend.balance > 0 && (
-        <p>
-          {friend.name} owes you {Math.abs(friend.balance)}€
-        </p>
-      )}
+ {friend.balance === 0 && <p> You and {friend.name} are even. </p>}
 
-      {friend.balance === 0 && <p>You and {friend.name} are even</p>}
+</div>
+     
+     <button className="button">Select</button>
     </li>
-  );
+  )
 }
