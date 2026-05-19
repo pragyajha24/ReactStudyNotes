@@ -73,6 +73,14 @@ function SkillList(){
     )
 }
 
+//could also write
+//{skills.map(function(skill){
+//return <Skill skill={skill.skill} key={skills.skill} color={skills.color} level={skills.level} />
+//})}
+
+//then, in skill function we would pass Skill({skill,color,level})
+//and we wont have to write skill. everywhere
+
 function Skill({skill}){
     return (
        <li className="skill" style={{backgroundColor:skill.color}} >
