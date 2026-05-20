@@ -35,7 +35,7 @@ export default function App() {
          <Button> Add Friend </Button>
       </div>
 
-      {/* <FormSplitBill /> */}
+      <FormSplitBill Button={Button} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function FormSplitBill() {
+export default function FormSplitBill({Button}) {
   const [bill, setBill] = useState("");
   const [expense, setExpense] = useState("");
   const [whoIsPaying, setWhoIsPaying] = useState("user");
@@ -35,7 +35,7 @@ export default function FormSplitBill() {
         <option value="friend">Friend</option>
       </select>
 
-      <button>Split bill</button>
+      <Button>Split bill</Button>
     </form>
   );
 }
