@@ -20,36 +20,35 @@ const initialFriends = [
 ];
 
 
-export default function FriendList(){
+export default function FriendList({Button}){
   return (
     <ul className="list"> 
     
      {initialFriends.map(function(friend){
-      return <List friend={friend} key={friend.id} />
+      return <List friend={friend} Button={Button} key={friend.id} />
      }) }
 
-     <button className="button"> Add Friend </button>
+     <Button> Add Friend </Button>
     </ul>
   )
 }
 
-function List({friend}){
+function List({friend,Button}){
   return (
     <li> 
-    <img src={friend.image} />
+      <img src={friend.image} />
     
     <div> 
-    <p> {friend.name} </p>
+      <p> {friend.name} </p>
  
- {friend.balance > 0 && <p> {friend.name} owes you {Math.abs(friend.balance)} </p>}
+      {friend.balance > 0 && <p className="red"> {friend.name} owes you {Math.abs(friend.balance)} </p>}
 
- {friend.balance < 0 && <p> You own {friend.name} {Math.abs(friend.balance)} </p>}
+      {friend.balance < 0 && <p className="red"> You own {friend.name} {Math.abs(friend.balance)} </p>}
 
- {friend.balance === 0 && <p> You and {friend.name} are even. </p>}
-
-</div>
+      {friend.balance === 0 && <p className="green"> You and {friend.name} are even. </p>}
+   </div>
      
-     <button className="button">Select</button>
+      <Button>Select</Button>
     </li>
   )
 }

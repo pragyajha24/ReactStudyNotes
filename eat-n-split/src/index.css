@@ -87,6 +87,13 @@ body {
   align-items: start;
 }
 
+@media screen and (min-width : 700px){
+  .sidebar{
+    padding:0 3rem;
+
+  }
+}
+
 .button {
   background-color: var(--color-medium);
   color: #343a40;
@@ -171,11 +178,12 @@ form {
   border-radius: 7px;
 }
 
-.form-add-friend {
+.add-friend-form {
   grid-template-columns: 1fr 1.5fr;
   margin-bottom: 1.6rem;
   padding: 1.2rem;
 }
+
 .form-split-bill {
   grid-template-columns: 1fr 12rem;
   padding: 3.2rem 4rem;

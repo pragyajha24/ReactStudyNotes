@@ -7,12 +7,18 @@ export default function App() {
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendList />
+        <FriendList Button={Button}/>
       
-        {/* <FormAddFriend /> */}
+        <FormAddFriend Button={Button} />
       </div>
 
       {/* <FormSplitBill /> */}
     </div>
   );
+}
+
+ function Button({children}){
+  return (
+    <button className="button">{children} </button>
+  )
 }
