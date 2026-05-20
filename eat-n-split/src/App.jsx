@@ -25,6 +25,10 @@ const initialFriends = [
 ];
 
 export default function App() {
+
+  //state for adding and updating new object in the list
+  const [friends, setFriends] = useState(initialFriends);
+
   // state for displaying the Form add friend component
   const [showAddFriend,setShowAddFriend] = useState(false);
 
@@ -39,7 +43,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendList Button={Button}  initialFriends={initialFriends} />
+        <FriendList friends={friends} Button={Button}  initialFriends={initialFriends} />
 
           {/* conditionally rendering the component */}
      { showAddFriend && <FormAddFriend Button={Button}   /> }

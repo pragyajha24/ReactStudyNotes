@@ -1,11 +1,11 @@
 
 
 
-export default function FriendList({Button , initialFriends}){
+export default function FriendList({Button , friends}){
   return (
     <ul className="list"> 
     
-     {initialFriends.map(function(friend){
+     {friends.map(function(friend){
       return <List friend={friend} Button={Button} key={friend.id} />
      }) }
 
