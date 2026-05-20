@@ -28,7 +28,7 @@ export default function FriendList({Button}){
       return <List friend={friend} Button={Button} key={friend.id} />
      }) }
 
-     <Button> Add Friend </Button>
+    
     </ul>
   )
 }

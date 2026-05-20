@@ -8,8 +8,10 @@ export default function App() {
     <div className="app">
       <div className="sidebar">
         <FriendList Button={Button}/>
-      
+
         <FormAddFriend Button={Button} />
+
+         <Button> Add Friend </Button>
       </div>
 
       {/* <FormSplitBill /> */}
