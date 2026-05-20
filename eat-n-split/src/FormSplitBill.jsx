@@ -7,7 +7,7 @@ export default function FormSplitBill() {
 
   return (
     <form className="form-split-bill">
-      {/* <h2>SPLIT A BILL WITH SARAH</h2> */}
+      <h2>SPLIT A BILL WITH SARAH</h2>
 
       <label>💰 Bill value</label>
       <input
