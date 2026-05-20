@@ -21,11 +21,11 @@ function List({friend,Button}){
     <div> 
       <p> {friend.name} </p>
  
-      {friend.balance > 0 && <p className="red"> {friend.name} owes you {Math.abs(friend.balance)} </p>}
+      {friend.balance > 0 && <p className="green"> {friend.name} owes you {Math.abs(friend.balance)} </p>}
 
       {friend.balance < 0 && <p className="red"> You owe {friend.name} {Math.abs(friend.balance)} </p>}
 
-      {friend.balance === 0 && <p className="green"> You and {friend.name} are even. </p>}
+      {friend.balance === 0 && <p> You and {friend.name} are even. </p>}
    </div>
      
       <Button>Select</Button>

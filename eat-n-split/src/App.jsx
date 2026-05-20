@@ -40,13 +40,23 @@ export default function App() {
    })
   }
 
+  // to add new friends
+  //friend - new friend that we created 
+  function handleAddFriend(friend){
+    //take the current friends - then we create  a new array
+    //spread current friends and add new friend
+    setFriends(function(friends){
+      return [...friends,friend]
+    })
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <FriendList friends={friends} Button={Button}  initialFriends={initialFriends} />
 
           {/* conditionally rendering the component */}
-     { showAddFriend && <FormAddFriend Button={Button}   /> }
+     { showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} Button={Button}   /> }
 
            {/* change text from Add friend to Close depending on state value */}
         <Button onClick={handleShowAddFriend} > {showAddFriend ? 'Close' : 'Add Friend'} </Button>
