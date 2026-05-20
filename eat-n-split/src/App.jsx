@@ -44,7 +44,8 @@ export default function App() {
           {/* conditionally rendering the component */}
      { showAddFriend && <FormAddFriend Button={Button}   /> }
 
-         <Button onClick={handleShowAddFriend} > {showAddFriend ? 'Close' : 'Add Friend'} </Button>
+           {/* change text from Add friend to Close depending on state value */}
+        <Button onClick={handleShowAddFriend} > {showAddFriend ? 'Close' : 'Add Friend'} </Button>
       </div>
 
       <FormSplitBill Button={Button}  />
