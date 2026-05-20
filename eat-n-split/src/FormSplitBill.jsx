@@ -7,7 +7,7 @@ export default function FormSplitBill({Button}) {
 
   return (
     <form className="form-split-bill">
-      <h2>SPLIT A BILL WITH SARAH</h2>
+      <h2>SPLIT A BILL WITH Sarah</h2>
 
       <label>💰 Bill value</label>
       <input
@@ -23,7 +23,7 @@ export default function FormSplitBill({Button}) {
         onChange={(e) => setExpense(Number(e.target.value))}
       />
 
-      <label>👫 Sarah's expense:</label>
+      <label>👫 Friend expense:</label>
       <p> {bill - expense} </p>
 
       <label>🤑 Who is paying the bill?</label>

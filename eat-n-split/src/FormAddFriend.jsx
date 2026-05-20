@@ -7,14 +7,14 @@ export default function FormAddFriend({ Button}) {
 
   return (
     <form className="add-friend-form" >
-      <label>Friend name</label>
+      <label>👫Friend name</label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <label>Image URL</label>
+      <label>🌄 Image URL</label>
       <input
         type="text"
         value={url}

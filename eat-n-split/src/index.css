@@ -87,12 +87,12 @@ body {
   align-items: start;
 }
 
-@media screen and (min-width : 700px){
+/* @media screen and (min-width : 700px){
   .sidebar{
     padding:0 3rem;
 
   }
-}
+} */
 
 .button {
   background-color: var(--color-medium);

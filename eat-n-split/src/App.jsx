@@ -25,23 +25,36 @@ const initialFriends = [
 ];
 
 export default function App() {
+  // state for displaying the Form add friend component
+  const [showAddFriend,setShowAddFriend] = useState(false);
+
+  //event handler function to display the show add friend form
+  //toggle the current state
+  function handleShowAddFriend(){
+   setShowAddFriend(function(show){
+    return !show;
+   })
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <FriendList Button={Button}  initialFriends={initialFriends} />
 
-        <FormAddFriend Button={Button} />
+          {/* conditionally rendering the component */}
+     { showAddFriend && <FormAddFriend Button={Button}   /> }
 
-         <Button> Add Friend </Button>
+         <Button onClick={handleShowAddFriend} > {showAddFriend ? 'Close' : 'Add Friend'} </Button>
       </div>
 
-      <FormSplitBill Button={Button} />
+      <FormSplitBill Button={Button}  />
     </div>
   );
 }
 
- function Button({children}){
+// reusable component
+ function Button({children, onClick}){
   return (
-    <button className="button">{children} </button>
+    <button className="button" onClick={onClick}>{children} </button>
   )
 }
