@@ -48,6 +48,9 @@ export default function App() {
     setFriends(function(friends){
       return [...friends,friend]
     })
+
+    //to close the add friend form after submiting it 
+    setShowAddFriend(false);
   }
 
   return (
