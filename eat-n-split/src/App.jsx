@@ -57,8 +57,12 @@ export default function App() {
 
   // function to control the selectedFriend state
   function handleSelection(friend) {
-    //currently selected friend
-    setSelectedFriend(friend);
+    ////currently selected friend
+    // setSelectedFriend(friend);
+
+    setSelectedFriend(function (cur) {
+      return cur?.id === friend.id ? null : friend;
+    });
   }
 
   return (

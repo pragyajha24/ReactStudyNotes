@@ -22,9 +22,11 @@ export default function FriendList({
 }
 
 function List({ friend, Button, onSelection, selectedFriend }) {
-  const isSelected = selectedFriend.id === friend.id;
+  //comparing selectedFriend id with current selected friend, gives a boolean value
+  const isSelected = selectedFriend?.id === friend.id;
 
   return (
+    //used it to conditionally define className
     <li className={isSelected ? "selected" : " "}>
       <img src={friend.image} />
 
@@ -53,7 +55,7 @@ function List({ friend, Button, onSelection, selectedFriend }) {
           return onSelection(friend);
         }}
       >
-        Select
+        {isSelected ? "Close" : "Select"}
       </Button>
     </li>
   );
