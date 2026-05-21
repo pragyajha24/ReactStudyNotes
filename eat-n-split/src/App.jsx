@@ -63,6 +63,9 @@ export default function App() {
     setSelectedFriend(function (cur) {
       return cur?.id === friend.id ? null : friend;
     });
+
+    // to close formaddfriend when formsplitbill opens,
+    setShowAddFriend(false);
   }
 
   return (
