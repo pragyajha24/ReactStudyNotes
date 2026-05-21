@@ -85,7 +85,9 @@ export default function App() {
 
       {/* if no friend is selected, don't want to show FormSplitBill component */}
       {/* so, conditionally rendering it */}
-      {selectedFriend && <FormSplitBill Button={Button} />}
+      {selectedFriend && (
+        <FormSplitBill Button={Button} selectedFriend={selectedFriend} />
+      )}
     </div>
   );
 }
