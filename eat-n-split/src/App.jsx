@@ -25,14 +25,14 @@ const initialFriends = [
 ];
 
 export default function App() {
-  // state for friend object
-  const [selectedFriend, setSelectedFriend] = useState(null);
-
   //state for adding and updating new object in the list
   const [friends, setFriends] = useState(initialFriends);
 
   // state for displaying the Form add friend component
   const [showAddFriend, setShowAddFriend] = useState(false);
+
+  // state for friend object
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   //event handler function to display the show add friend form
   //toggle the current state
@@ -68,6 +68,23 @@ export default function App() {
     setShowAddFriend(false);
   }
 
+  function handleSplitBill(value) {
+    // console.log(value);
+
+    //updating  friends state
+    //new array that we written here will be based on current friends array
+    setFriends(function (friends) {
+      return friends.map(function (friend) {
+        return friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend;
+      });
+    });
+
+    //setting the state back to initial after submitting the split bill and close the form
+    setSelectedFriend(null);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -93,7 +110,11 @@ export default function App() {
       {/* if no friend is selected, don't want to show FormSplitBill component */}
       {/* so, conditionally rendering it */}
       {selectedFriend && (
-        <FormSplitBill Button={Button} selectedFriend={selectedFriend} />
+        <FormSplitBill
+          Button={Button}
+          selectedFriend={selectedFriend}
+          onSplitBill={handleSplitBill}
+        />
       )}
     </div>
   );

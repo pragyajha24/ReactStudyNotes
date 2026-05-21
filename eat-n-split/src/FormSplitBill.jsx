@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function FormSplitBill({ Button, selectedFriend }) {
+export default function FormSplitBill({ Button, selectedFriend, onSplitBill }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
 
@@ -11,6 +11,10 @@ export default function FormSplitBill({ Button, selectedFriend }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    //guard clause if there is no bill or no value paid by the user
+    if (!bill || !paidByUser) return;
+    onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
   }
 
   return (
