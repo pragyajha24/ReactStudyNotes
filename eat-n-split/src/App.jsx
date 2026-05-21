@@ -67,8 +67,8 @@ export default function App() {
         <FriendList
           friends={friends}
           Button={Button}
-          initialFriends={initialFriends}
           onSelection={handleSelection}
+          selectedFriend={selectedFriend}
         />
 
         {/* conditionally rendering the component */}

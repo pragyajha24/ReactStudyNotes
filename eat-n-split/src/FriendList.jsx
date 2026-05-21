@@ -1,4 +1,9 @@
-export default function FriendList({ Button, friends, onSelection }) {
+export default function FriendList({
+  Button,
+  friends,
+  onSelection,
+  selectedFriend,
+}) {
   return (
     <ul className="list">
       {friends.map(function (friend) {
@@ -8,6 +13,7 @@ export default function FriendList({ Button, friends, onSelection }) {
             Button={Button}
             key={friend.id}
             onSelection={onSelection}
+            selectedFriend={selectedFriend}
           />
         );
       })}
@@ -15,9 +21,11 @@ export default function FriendList({ Button, friends, onSelection }) {
   );
 }
 
-function List({ friend, Button, onSelection }) {
+function List({ friend, Button, onSelection, selectedFriend }) {
+  const isSelected = selectedFriend.id === friend.id;
+
   return (
-    <li>
+    <li className={isSelected ? "selected" : " "}>
       <img src={friend.image} />
 
       <div>
