@@ -2,7 +2,11 @@ import { useState } from "react";
 
 export default function FormSplitBill({ Button, selectedFriend }) {
   const [bill, setBill] = useState("");
-  const [expense, setExpense] = useState("");
+  const [paidByUser, setPaidByUser] = useState("");
+
+  // derived state
+  const paidByFriend = bill ? bill - paidByUser : "";
+
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
   return (
@@ -19,12 +23,12 @@ export default function FormSplitBill({ Button, selectedFriend }) {
       <label>🧍‍♀️ Your expense</label>
       <input
         type="number"
-        value={expense}
-        onChange={(e) => setExpense(Number(e.target.value))}
+        value={paidByUser}
+        onChange={(e) => setPaidByUser(Number(e.target.value))}
       />
 
       <label>👫 {selectedFriend.name}'s expense :</label>
-      <p> {bill - expense} </p>
+      <input type="number" disabled value={paidByFriend} />
 
       <label>🤑 Who is paying the bill ?</label>
       <select
