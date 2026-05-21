@@ -55,6 +55,12 @@ export default function App() {
     setShowAddFriend(false);
   }
 
+  // function to control the selectedFriend state
+  function handleSelection(friend) {
+    //currently selected friend
+    setSelectedFriend(friend);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -62,6 +68,7 @@ export default function App() {
           friends={friends}
           Button={Button}
           initialFriends={initialFriends}
+          onSelection={handleSelection}
         />
 
         {/* conditionally rendering the component */}
@@ -76,6 +83,8 @@ export default function App() {
         </Button>
       </div>
 
+      {/* if no friend is selected, don't want to show FormSplitBill component */}
+      {/* so, conditionally rendering it */}
       {selectedFriend && <FormSplitBill Button={Button} />}
     </div>
   );
