@@ -49,12 +49,22 @@ const tempWatchedData = [
   },
 ];
 
+// api key
+const KEY = 'd2062652';
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+ // Lecture - 142
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=divergent`)
+  .then(function(response){
+    return response.json()
+  }).then(function(data){
+    console.log(data)
+  })
 
 
-  
 
   return (
     <>
