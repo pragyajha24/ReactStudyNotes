@@ -6,18 +6,26 @@ import { useEffect, useState } from "react";
 const KEY = "d2062652";
 
 export default function App() {
+
+  //state of input field- search movies
+   const [query, setQuery] = useState("");
+
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [error,setError] = useState("");
-  const query = "shsh";
+ 
 
+  // to fetch movie data from api
   useEffect(function () {
     async function fetchMovies() {
    try   { 
       setIsLoading(true);
+
+      //resetting the error state
+      setError('');
 
       const res = await fetch(
         `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
@@ -42,14 +50,21 @@ export default function App() {
      }
   }
 
+  // when no query set movie to empty error and no error on screen
+  if(query.length < 3){
+    setMovies([]);
+    setError('');
+    return
+  }
+
     fetchMovies();
-  }, []);
+  }, [query]);
 
   return (
     <>
       <NavBar>
         <Logo />
-        <SearchInput />
+        <SearchInput query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
 
@@ -98,8 +113,8 @@ function Logo() {
   );
 }
 
-function SearchInput() {
-  const [query, setQuery] = useState("");
+function SearchInput({query,setQuery}) {
+ 
 
   return (
     <input
