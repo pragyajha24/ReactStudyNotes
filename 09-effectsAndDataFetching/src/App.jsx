@@ -307,6 +307,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 
     //new movie object passed as argument
     onAddWatched(newWatchedMovie);
+
+    onCloseMovie();
   }
 
   // to fetch movie details based on id parameter
