@@ -275,7 +275,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // state for user rating
+  // state for user rating - star rating
   const [userRating, setUserRating] = useState("");
 
   //destructing data out of this movie- choosing our own variable name
@@ -368,10 +368,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
               />
 
               {/* button to select the movie to add to watched summary list */}
-              <button className="btn-add" onClick={handleAdd}>
-                {" "}
-                + Add to the list{" "}
-              </button>
+              {userRating > 0 && (
+                <button className="btn-add" onClick={handleAdd}>
+                  + Add to the list
+                </button>
+              )}
             </div>
 
             <p>
