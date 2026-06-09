@@ -7,7 +7,7 @@ const KEY = "d2062652";
 
 export default function App() {
   //state of input field- search movies
-  const [query, setQuery] = useState("letter");
+  const [query, setQuery] = useState("");
 
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
@@ -259,13 +259,67 @@ function WatchedBox() {
 */
 
 // component that will be displayed if there is selectedId
+//component to display movie details
 function MovieDetails({ selectedId, onCloseMovie }) {
+  const [movie, setMovie] = useState({});
+
+  //destructing data out of this movie- choosing our own variable name
+  const {
+    Title: title,
+    Year: year,
+    Poster: poster,
+    Runtime: runtime,
+    imdbRating,
+    Plot: plot,
+    Released: released,
+    Actors: actors,
+    Director: director,
+    Genre: genre,
+  } = movie;
+
+  console.log(title, year, genre);
+
+  // to fetch movie details based on id parameter
+  useEffect(function () {
+    async function getMovieDetails() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`,
+      );
+
+      const data = await res.json();
+      console.log(data);
+      setMovie(data);
+    }
+    getMovieDetails();
+  }, []);
+
   return (
-    <div>
-      <button className="btn-back" onClick={onCloseMovie}>
-        &larr;
-      </button>
-      {selectedId}
+    <div className="details">
+      <header>
+        <button className="btn-back" onClick={onCloseMovie}>
+          &larr;
+        </button>
+        <img src={poster} alt={`Poster of ${movie}`} />
+        <div className="details-overview">
+          <h2>{title}</h2>
+          <p>
+            {released} &bull; {runtime}
+          </p>
+          <p>{genre}</p>
+          <p>
+            <span>⭐</span> {imdbRating} IMDb rating
+          </p>
+        </div>
+      </header>
+
+      <section>
+        <p>
+          {" "}
+          <em>{plot}</em>{" "}
+        </p>
+        <p>Staring {actors}</p>
+        <p>Directed by {director} </p>
+      </section>
     </div>
   );
 }
