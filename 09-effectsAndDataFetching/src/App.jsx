@@ -6,59 +6,65 @@ import { useEffect, useState } from "react";
 const KEY = "d2062652";
 
 export default function App() {
-
   //state of input field- search movies
-   const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("letter");
 
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [error,setError] = useState("");
- 
+  const [error, setError] = useState("");
+
+  //state for selected movie and displaying movie details
+  const [selectedId, setSelectedId] = useState(null);
+
+  //handler for movie component for showing movie details
+  function handleSelectMovie(id) {
+    setSelectedId(id);
+  }
 
   // to fetch movie data from api
-  useEffect(function () {
-    async function fetchMovies() {
-   try   { 
-      setIsLoading(true);
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
 
-      //resetting the error state
-      setError('');
+          //resetting the error state
+          setError("");
 
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-      );
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          );
 
-      if(!res.ok) throw new Error("Something went wrong with fetching movies");
-      
-      const data = await res.json();
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
 
-      if( data.Response === 'False') throw new Error('Movie not found');
+          const data = await res.json();
 
-      setMovies(data.Search);
-      console.log(data)
+          if (data.Response === "False") throw new Error("Movie not found");
 
-    
-    } catch (err) {
-      console.error(err.message);
-      setError(err.message);
-      
-    } finally {
-      setIsLoading(false);
-     }
-  }
+          setMovies(data.Search);
+        } catch (err) {
+          console.error(err.message);
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
 
-  // when no query set movie to empty error and no error on screen
-  if(query.length < 3){
-    setMovies([]);
-    setError('');
-    return
-  }
+      // when no query set movie to empty error and no error on screen
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
 
-    fetchMovies();
-  }, [query]);
+      fetchMovies();
+    },
+    [query],
+  );
 
   return (
     <>
@@ -73,27 +79,32 @@ export default function App() {
         {isLoading ? <Loader /> : <MovieList movies={movies} />}
         </Box> */}
 
-        <Box> 
+        <Box>
           {isLoading && <Loader />}
-          {!isLoading && !error && <MovieList movies={movies} />}
+          {!isLoading && !error && (
+            <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+          )}
           {error && <ErrorMessage message={error} />}
         </Box>
 
+        {/* conditionally rendering using ternary operator the component if there is a selectedId */}
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
+          {selectedId ? (
+            <MovieDetails selectedId={selectedId} />
+          ) : (
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMoviesList watched={watched} />
+            </>
+          )}
         </Box>
       </Main>
     </>
   );
 }
 
-function ErrorMessage({message}){
-return (
-  <p className="error">
-  ⛔ {message}
-   </p>
-)
+function ErrorMessage({ message }) {
+  return <p className="error">⛔ {message}</p>;
 }
 
 function Loader() {
@@ -113,9 +124,7 @@ function Logo() {
   );
 }
 
-function SearchInput({query,setQuery}) {
- 
-
+function SearchInput({ query, setQuery }) {
   return (
     <input
       className="search"
@@ -175,19 +184,25 @@ function ListBox({ children }) {
 }
 */
 
-function MovieList({ movies }) {
+function MovieList({ movies, onSelectMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map(function (movie) {
-        return <Movie movie={movie} key={movie.imdbID} />;
+        return (
+          <Movie
+            movie={movie}
+            onSelectMovie={onSelectMovie}
+            key={movie.imdbID}
+          />
+        );
       })}
     </ul>
   );
 }
 
-function Movie({ movie }) {
+function Movie({ movie, onSelectMovie }) {
   return (
-    <li>
+    <li onClick={() => onSelectMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -229,6 +244,11 @@ function WatchedBox() {
   );
 }
 */
+
+// component that will be displayed if there is selectedId
+function MovieDetails({ selectedId }) {
+  return <div>{selectedId}</div>;
+}
 
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(
