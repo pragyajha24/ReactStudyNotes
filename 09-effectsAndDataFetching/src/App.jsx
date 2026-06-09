@@ -1,6 +1,7 @@
 // Lecture 140 - 158
 
 import { useEffect, useState } from "react";
+import StarRating from "./StarRating";
 
 // api key
 const KEY = "d2062652";
@@ -313,6 +314,10 @@ function MovieDetails({ selectedId, onCloseMovie }) {
       </header>
 
       <section>
+        <div className="rating">
+          <StarRating maxRating={10} size={24} />
+        </div>
+
         <p>
           {" "}
           <em>{plot}</em>{" "}
