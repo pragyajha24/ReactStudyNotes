@@ -21,7 +21,17 @@ export default function App() {
 
   //handler for movie component for showing movie details
   function handleSelectMovie(id) {
-    setSelectedId(id);
+    // setSelectedId(id);
+    /* functionality - if clicked on current movie i.e. current id close the detail component , 
+    so can close detail movie either by arrow button or by clicking on selected movie */
+    setSelectedId(function (selectedId) {
+      return id === selectedId ? null : id;
+    });
+  }
+
+  //handler to close the movie detail
+  function handleCloseMovie() {
+    setSelectedId(null);
   }
 
   // to fetch movie data from api
@@ -90,7 +100,10 @@ export default function App() {
         {/* conditionally rendering using ternary operator the component if there is a selectedId */}
         <Box>
           {selectedId ? (
-            <MovieDetails selectedId={selectedId} />
+            <MovieDetails
+              selectedId={selectedId}
+              onCloseMovie={handleCloseMovie}
+            />
           ) : (
             <>
               <WatchedSummary watched={watched} />
@@ -246,8 +259,15 @@ function WatchedBox() {
 */
 
 // component that will be displayed if there is selectedId
-function MovieDetails({ selectedId }) {
-  return <div>{selectedId}</div>;
+function MovieDetails({ selectedId, onCloseMovie }) {
+  return (
+    <div>
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+      {selectedId}
+    </div>
+  );
 }
 
 function WatchedSummary({ watched }) {
