@@ -11,6 +11,8 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   const [movies, setMovies] = useState([]);
+
+  //state for watched movie - watchedsummary
   const [watched, setWatched] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -269,7 +271,7 @@ function WatchedBox() {
 
 // component that will be displayed if there is selectedId
 //component to display movie details
-function MovieDetails({ selectedId, onCloseMovie }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -288,6 +290,24 @@ function MovieDetails({ selectedId, onCloseMovie }) {
   } = movie;
 
   console.log(title, year, genre);
+
+  function handleAdd() {
+    //  this one will eventually call that function that we pass
+    // in <MovieDetails /> as a prop - onAddWatched
+
+    //creating new watched movie object
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+    };
+
+    //new movie object passed as argument
+    onAddWatched(newWatchedMovie);
+  }
 
   // to fetch movie details based on id parameter
   useEffect(
@@ -336,6 +356,12 @@ function MovieDetails({ selectedId, onCloseMovie }) {
           <section>
             <div className="rating">
               <StarRating maxRating={10} size={24} />
+
+              {/* button to select the movie to add to watched summary list */}
+              <button className="btn-add" onClick={handleAdd}>
+                {" "}
+                + Add to the list{" "}
+              </button>
             </div>
 
             <p>
@@ -408,8 +434,8 @@ function WatchedMoviesList({ watched }) {
 function WatchedMovie({ movie }) {
   return (
     <li>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
 
       <div>
         <p>
@@ -422,7 +448,7 @@ function WatchedMovie({ movie }) {
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime}</span>
+          <span>{movie.runtime} min</span>
         </p>
       </div>
     </li>
