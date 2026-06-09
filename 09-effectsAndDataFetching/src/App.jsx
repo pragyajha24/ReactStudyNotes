@@ -35,6 +35,13 @@ export default function App() {
     setSelectedId(null);
   }
 
+  //handler for adding new movie item in watched array with existing movie item
+  function handleAddWatched(movie) {
+    setWatched(function (watched) {
+      return [...watched, movie];
+    });
+  }
+
   // to fetch movie data from api
   useEffect(
     function () {
@@ -104,6 +111,7 @@ export default function App() {
             <MovieDetails
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
             />
           ) : (
             <>
@@ -368,7 +376,7 @@ function WatchedSummary({ watched }) {
       <div>
         <p>
           <span>#️⃣</span>
-          <span>{watched.length}</span>
+          <span>{watched.length} movies</span>
         </p>
         <p>
           <span>⭐️</span>
