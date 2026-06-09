@@ -16,12 +16,7 @@ const containerStyle = {
 
 const starContainerStyle = {
   display: "flex",
-  gap: "4px",
-};
-
-const textStyle = {
-  lineHeight: "1",
-  margin: "0",
+  // gap: "4px",
 };
 
 {
@@ -32,12 +27,12 @@ const textStyle = {
 export default function StarRating({
   maxRating = 5,
   color = "#fcc419",
-  size = 48,
+  size = 20,
   className = "",
-  message = [],
+  messages = [],
   defaultRating = 0,
 }) {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(defaultRating);
 
   // state for handling hover events
   const [tempRating, setTempRating] = useState(0);
@@ -45,6 +40,13 @@ export default function StarRating({
   function handleRating(rating) {
     setRating(rating);
   }
+
+  const textStyle = {
+    lineHeight: "1",
+    margin: "0",
+    color,
+    fontSize: `${size / 1.5}px`,
+  };
 
   return (
     <div style={containerStyle} className={className}>
@@ -71,16 +73,16 @@ export default function StarRating({
   );
 }
 
-const starStyle = {
-  width: "48px",
-  height: "48px",
-  display: "block",
-  cursor: "pointer",
-};
-
 // creating stars
 //called this under star rating component
 function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
+  const starStyle = {
+    width: `${size}px`,
+    height: `${size}px`,
+    display: "block",
+    cursor: "pointer",
+  };
+
   return (
     <span
       role="button"
