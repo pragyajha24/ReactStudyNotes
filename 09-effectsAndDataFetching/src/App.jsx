@@ -312,12 +312,14 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched,watched }) {
     imdbRating,
     Plot: plot,
     Released: released,
-    Actors: actors,
+    Actors: actors,   
     Director: director,
     Genre: genre,
   } = movie;
 
   // console.log(title, year, genre);
+
+ 
 
   function handleAdd() {
     //  this one will eventually call that function that we pass
@@ -360,6 +362,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched,watched }) {
     },
     [selectedId],
   );
+
+  // for changing the page title - in browser tab
+   useEffect(function(){
+    if(!title) return;
+    document.title = `Movie | ${title}`
+  },[title]) 
 
   return (
     <div className="details">
