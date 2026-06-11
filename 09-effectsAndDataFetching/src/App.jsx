@@ -371,6 +371,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched,watched }) {
     // doing cleanup function
     return function(){
       document.title="usePopcorn";
+      // cleanup effect also run for movie we selected before- on re-rendered
+      //it remembers the name of previous movie because of closures
+      console.log(`Clean up effect for movie ${title}`)
     }
   },[title]) 
 
