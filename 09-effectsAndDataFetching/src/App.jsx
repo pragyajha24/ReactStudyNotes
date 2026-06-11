@@ -59,6 +59,11 @@ export default function App() {
   // to fetch movie data from api
   useEffect(
     function () {
+
+      //cleaning up data fetching
+      //native browser api - Abort controller for cleanup function
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
@@ -66,8 +71,10 @@ export default function App() {
           //resetting the error state
           setError("");
 
+          //connecting abort controller with fetch function,
+          //pass in a second argument where we define the object with signal property
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`, {signal:controller.signal}
           );
 
           if (!res.ok)
@@ -78,8 +85,13 @@ export default function App() {
           if (data.Response === "False") throw new Error("Movie not found");
 
           setMovies(data.Search);
+          setError("");
         } catch (err) {
           console.error(err.message);
+
+          // ignoring the error from abort
+          if(err.name !== "AbortError")
+
           setError(err.message);
         } finally {
           setIsLoading(false);
@@ -94,6 +106,14 @@ export default function App() {
       }
 
       fetchMovies();
+
+
+      //cleanup function
+      //each time there is new re-render our controller will abort the current fetch request
+      //cancel the current request each time new request comes
+      return function(){
+        controller.abort();
+      }
     },
     [query],
   );
