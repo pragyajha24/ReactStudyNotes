@@ -114,6 +114,7 @@ export default function App() {
               selectedId={selectedId}
               onCloseMovie={handleCloseMovie}
               onAddWatched={handleAddWatched}
+              watched={watched}
             />
           ) : (
             <>
@@ -271,12 +272,24 @@ function WatchedBox() {
 
 // component that will be displayed if there is selectedId
 //component to display movie details
-function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched,watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   // state for user rating - star rating
   const [userRating, setUserRating] = useState("");
+
+  // checking if the watched array of object includes the array
+  //  object that is currently selected.
+    const isWatched = watched.map(movie => movie.imdbID).includes(selectedId)
+
+    //deriving userrating from watched array
+    const watchedUserRating = watched.find(function(movie){
+      return movie.imdbID === selectedId;
+    })?.userRating
+    
+
+  console.log(isWatched)
 
   //destructing data out of this movie- choosing our own variable name
   const {
@@ -292,7 +305,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
     Genre: genre,
   } = movie;
 
-  console.log(title, year, genre);
+  // console.log(title, year, genre);
 
   function handleAdd() {
     //  this one will eventually call that function that we pass
@@ -361,6 +374,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
 
           <section>
             <div className="rating">
+
+            { !isWatched ? (
+             <>
               <StarRating
                 maxRating={10}
                 size={24}
@@ -372,8 +388,14 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
                 <button className="btn-add" onClick={handleAdd}>
                   + Add to the list
                 </button>
-              )}
-            </div>
+              )} 
+            </> 
+            ) : (
+              <p>You rated this movie <strong>{watchedUserRating}</strong> 
+              <span>⭐️ </span>
+               </p> 
+            )}
+          </div>
 
             <p>
               {" "}
@@ -403,7 +425,7 @@ function WatchedSummary({ watched }) {
 
   const avgRuntime = average(
     watched.map(function (movie) {
-      return movie.runtime;
+      return isNaN(movie.runtime) ? 0 : movie.runtime;
     }),
   );
 
