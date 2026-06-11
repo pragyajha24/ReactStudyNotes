@@ -44,6 +44,18 @@ export default function App() {
     });
   }
 
+
+  //handler to delete movies from movies list
+  //filter() goes through every movie in array one by one,
+  //  will compare the id and delete whose matches
+  function handleDeleteWatched(id){
+    setWatched(function(watched){
+      return watched.filter(function(movie){
+        return  movie.imdbID !== id
+      })
+    })
+  }
+
   // to fetch movie data from api
   useEffect(
     function () {
@@ -119,7 +131,7 @@ export default function App() {
           ) : (
             <>
               <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList watched={watched} onDeleteWatched={handleDeleteWatched} />
             </>
           )}
         </Box>
@@ -454,17 +466,17 @@ function WatchedSummary({ watched }) {
   );
 }
 
-function WatchedMoviesList({ watched }) {
+function WatchedMoviesList({ watched,onDeleteWatched }) {
   return (
     <ul className="list">
       {watched.map(function (movie) {
-        return <WatchedMovie movie={movie} key={movie.imdbID} />;
+        return <WatchedMovie movie={movie}  onDeleteWatched={onDeleteWatched} key={movie.imdbID} />;
       })}
     </ul>
   );
 }
 
-function WatchedMovie({ movie }) {
+function WatchedMovie({ movie,onDeleteWatched }) {
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -483,6 +495,10 @@ function WatchedMovie({ movie }) {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
+
+        <button className="btn-delete" onClick={() => onDeleteWatched(movie.imdbID)}>
+        X
+        </button>
       </div>
     </li>
   );
