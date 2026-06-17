@@ -102,6 +102,10 @@ export default function App() {
         return;
       }
 
+      //when we search for another movie,we want to close the previous movie details
+      //so before fetching the movie close the details
+      handleCloseMovie();
+
       fetchMovies();
 
       //cleanup function
