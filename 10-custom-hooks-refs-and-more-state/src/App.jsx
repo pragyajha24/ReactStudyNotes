@@ -40,6 +40,11 @@ export default function App() {
     setWatched(function (watched) {
       return [...watched, movie];
     });
+
+    // LOCAL STORAGE - through stroing the data in local storage each time a new movie is added
+    //key is watched the data we want to store
+    //value is the actual data- we built a new array based on the watched(current state) plus the new movie
+    localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   //handler to delete movies from movies list
