@@ -11,7 +11,7 @@ export default function App() {
   const [movies, setMovies] = useState([]);
 
   //state for watched movie - watchedsummary
-  const [watched, setWatched] = useState([]);
+ // const [watched, setWatched] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,6 +19,13 @@ export default function App() {
 
   //state for selected movie and displaying movie details
   const [selectedId, setSelectedId] = useState(null);
+
+  // SECOND STEP of storing data in local storage -
+  //  read data back in application as soon as component mounts
+  const [watched,setWatched] = useState(function(){
+    const storedValue = localStorage.getItem('watched')
+    return  JSON.parse(storedValue)
+  });
 
   //handler for movie component for showing movie details
   function handleSelectMovie(id) {
@@ -41,10 +48,13 @@ export default function App() {
       return [...watched, movie];
     });
 
-    // LOCAL STORAGE - through stroing the data in local storage each time a new movie is added
-    //key is watched the data we want to store
-    //value is the actual data- we built a new array based on the watched(current state) plus the new movie
-    localStorage.setItem("watched", JSON.stringify([...watched, movie]));
+    /*
+    STORING DATA IN LOCAL STORAGE THROUGH EVENT HANDLER
+    1. LOCAL STORAGE - through stroing the data in local storage each time a new movie is added
+    2.key is watched the data we want to store
+    3. value is the actual data- we built a new array based on the watched(current state) plus the new movie
+    */
+    //localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   //handler to delete movies from movies list
@@ -57,6 +67,15 @@ export default function App() {
       });
     });
   }
+
+  /* useEffect for STORING DATA IN LOCAL STORAGE */
+  /*  FIRST STEP - updating the local storage as watched state gets updated*/
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched],
+  );
 
   // to fetch movie data from api
   useEffect(
