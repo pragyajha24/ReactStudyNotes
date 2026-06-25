@@ -311,6 +311,15 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   // state for user rating - star rating
   const [userRating, setUserRating] = useState("");
 
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      if (userRating) countRef.current++;
+    },
+    [userRating],
+  );
+
   // checking if the watched array of object includes the array
   //  object that is currently selected.
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
@@ -351,6 +360,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecision: countRef.current,
     };
 
     //new movie object passed as argument
