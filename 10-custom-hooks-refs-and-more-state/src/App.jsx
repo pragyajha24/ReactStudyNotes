@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 // api key
@@ -11,7 +11,7 @@ export default function App() {
   const [movies, setMovies] = useState([]);
 
   //state for watched movie - watchedsummary
- // const [watched, setWatched] = useState([]);
+  // const [watched, setWatched] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,9 +22,9 @@ export default function App() {
 
   // SECOND STEP of storing data in local storage -
   //  read data back in application as soon as component mounts
-  const [watched,setWatched] = useState(function(){
-    const storedValue = localStorage.getItem('watched')
-    return  JSON.parse(storedValue)
+  const [watched, setWatched] = useState(function () {
+    const storedValue = localStorage.getItem("watched");
+    return JSON.parse(storedValue);
   });
 
   //handler for movie component for showing movie details
@@ -203,6 +203,13 @@ function Logo() {
 }
 
 function SearchInput({ query, setQuery }) {
+  const inputEl = useRef(null);
+
+  useEffect(function () {
+    console.log(inputEl.current);
+    inputEl.current.focus();
+  }, []);
+
   return (
     <input
       className="search"
@@ -210,6 +217,7 @@ function SearchInput({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
