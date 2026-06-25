@@ -17,7 +17,7 @@ export default function App() {
 
   // to fetch movie data from api
   //useMovies custom  hook
-  const { movies, isLoading, error } = useMovies(query);
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
   // SECOND STEP of storing data in local storage -
   //  read data back in application as soon as component mounts

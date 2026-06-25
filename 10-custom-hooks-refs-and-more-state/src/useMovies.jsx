@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // api key
 const KEY = "d2062652";
 
-export function useMovies(query) {
+export function useMovies(query, callback) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -11,6 +11,8 @@ export function useMovies(query) {
 
   useEffect(
     function () {
+      callback?.();
+
       //cleaning up data fetching
       //native browser api - Abort controller for cleanup function
       const controller = new AbortController();
