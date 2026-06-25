@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
 
 // api key
 const KEY = "d2062652";
@@ -8,17 +9,15 @@ export default function App() {
   //state of input field- search movies
   const [query, setQuery] = useState("");
 
-  const [movies, setMovies] = useState([]);
-
   //state for watched movie - watchedsummary
   // const [watched, setWatched] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [error, setError] = useState("");
-
   //state for selected movie and displaying movie details
   const [selectedId, setSelectedId] = useState(null);
+
+  // to fetch movie data from api
+  //useMovies custom  hook
+  const { movies, isLoading, error } = useMovies(query);
 
   // SECOND STEP of storing data in local storage -
   //  read data back in application as soon as component mounts
@@ -75,69 +74,6 @@ export default function App() {
       localStorage.setItem("watched", JSON.stringify(watched));
     },
     [watched],
-  );
-
-  // to fetch movie data from api
-  useEffect(
-    function () {
-      //cleaning up data fetching
-      //native browser api - Abort controller for cleanup function
-      const controller = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-
-          //resetting the error state
-          setError("");
-
-          //connecting abort controller with fetch function,
-          //pass in a second argument where we define the object with signal property
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal },
-          );
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-
-          const data = await res.json();
-
-          if (data.Response === "False") throw new Error("Movie not found");
-
-          setMovies(data.Search);
-          setError("");
-        } catch (err) {
-          // console.error(err.message);
-
-          // ignoring the error from abort
-          if (err.name !== "Abort Error") setError(err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-
-      // when no query set movie to empty error and no error on screen
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
-
-      //when we search for another movie,we want to close the previous movie details
-      //so before fetching the movie close the details
-      handleCloseMovie();
-
-      fetchMovies();
-
-      //cleanup function
-      //each time there is new re-render our controller will abort the current fetch request
-      //cancel the current request each time new request comes
-      return function () {
-        controller.abort();
-      };
-    },
-    [query],
   );
 
   return (
