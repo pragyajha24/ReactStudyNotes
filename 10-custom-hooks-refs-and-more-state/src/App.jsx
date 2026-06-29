@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 // api key
 const KEY = "d2062652";
@@ -21,10 +22,14 @@ export default function App() {
 
   // SECOND STEP of storing data in local storage -
   //  read data back in application as soon as component mounts
-  const [watched, setWatched] = useState(function () {
+  /* const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
-  });
+  });*/
+
+  //want this custom hook to work as state that is why returnng an array
+  // initial state is empty array
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   //handler for movie component for showing movie details
   function handleSelectMovie(id) {
@@ -69,12 +74,12 @@ export default function App() {
 
   /* useEffect for STORING DATA IN LOCAL STORAGE */
   /*  FIRST STEP - updating the local storage as watched state gets updated*/
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched],
-  );
+  // useEffect(
+  //   function () {
+  //     localStorage.setItem("watched", JSON.stringify(watched));
+  //   },
+  //   [watched],
+  // );
 
   return (
     <>
