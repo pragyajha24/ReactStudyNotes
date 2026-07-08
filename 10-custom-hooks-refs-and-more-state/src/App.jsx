@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
+import {useKey} from "./useKey";
 
 // api key
 const KEY = "d2062652";
@@ -146,6 +147,13 @@ function Logo() {
 function SearchInput({ query, setQuery }) {
   const inputEl = useRef(null);
 
+  useKey('Enter', function(){ 
+    if (document.activeElement === inputEl.current) return;
+      inputEl.current.focus();
+       setQuery("");
+  })
+
+  /* 
   useEffect(
     function () {
       function callback(e) {
@@ -166,6 +174,7 @@ function SearchInput({ query, setQuery }) {
     },
     [setQuery],
   );
+*/
 
   return (
     <input
@@ -348,7 +357,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [title],
   );
 
+  //customHook for keypress
+  useKey("Escape",onCloseMovie)
+
   // keypress function
+ /*
   useEffect(
     function () {
       function callback(e) {
@@ -365,6 +378,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     },
     [onCloseMovie],
   );
+*/
 
   return (
     <div className="details">
