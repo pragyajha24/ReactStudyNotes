@@ -27,7 +27,8 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  //destructing state object
+  const [{ question, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(function () {
     async function fetchQuestions() {
