@@ -1,3 +1,3 @@
 export default function App() {
-  return <div>WorldWise</div>;
+  return <div>Worldwise</div>;
 }
