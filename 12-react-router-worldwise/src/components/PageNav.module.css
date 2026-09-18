@@ -1,0 +1,13 @@
+/* need to define class names, cannot use element selector */
+
+.nav {
+  background-color: rgb(181, 193, 204);
+}
+
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem;
+  list-style: none;
+  text-decoration: none;
+}
