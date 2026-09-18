@@ -11,3 +11,12 @@
   list-style: none;
   text-decoration: none;
 }
+
+/* defining global css inside css module */
+/* :global(.test) {
+  background-color: red;
+} */
+
+.nav :global(.active) {
+  background-color: green;
+}
