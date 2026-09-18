@@ -1,3 +1,11 @@
+import { Link } from "react-router-dom";
+import PageNav from "../components/PageNav";
+
 export default function Homepage() {
-  return <div>Homepage - World Wise</div>;
+  return (
+    <div>
+      <PageNav />
+      <h1>Homepage - World Wise </h1>
+    </div>
+  );
 }
