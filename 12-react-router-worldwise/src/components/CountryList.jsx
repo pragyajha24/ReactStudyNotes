@@ -13,14 +13,19 @@ export default function CountryList({ cities, isLoading }) {
 
   //deriving country array from cities array
   //   const countries = [];
+  const countrySet = new Set();
+
   const countries = cities.reduce(function (arr, city) {
-    if (
-      !arr.some(function (el) {
-        return el.country.includes(city.country);
-      })
-    )
-      return [...arr, { country: city.country, emoji: city.emoji }];
-    else return arr;
+    if (!countrySet.has(city.country)) {
+      countrySet.add(city.country);
+
+      arr.push({
+        country: city.country,
+        emoji: city.emoji,
+      });
+    }
+
+    return arr;
   }, []);
 
   return (
@@ -31,3 +36,15 @@ export default function CountryList({ cities, isLoading }) {
     </ul>
   );
 }
+
+/*
+  const countries = cities.reduce(function (arr, city) {
+    if (
+      !arr.some(function (el) {
+        return el.country.includes(city.country);
+      })
+    )
+      return [...arr, { country: city.country, emoji: city.emoji }];
+    else return arr;
+  }, []);
+ */

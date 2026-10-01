@@ -2,9 +2,11 @@ import styles from "./CountryItem.module.css";
 
 function CountryItem({ country }) {
   const flagEmojiToPNG = function (flag) {
+    //getting the unicode numbers
     let countryCode = Array.from(flag, function (codeUnit) {
       return codeUnit.codePointAt();
     })
+      // converting unicode numbers into letters
       .map(function (char) {
         return String.fromCharCode(char - 127397).toLowerCase();
       })
