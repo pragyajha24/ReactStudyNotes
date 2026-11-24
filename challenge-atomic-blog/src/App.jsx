@@ -8,7 +8,8 @@ function createRandomPost(){
   }
 }
 
-createContext()
+//1.CREATE A CONTEXT
+const PostContext = createContext();
 
 export default function App(){
   //this callback function only runs at initial render, function under useState
@@ -50,6 +51,14 @@ export default function App(){
   }, [isFakeDark])
 
   return (
+    //2.PROVIDE VALUE TO CHILD COMPONENTS
+    <PostContext.Provider value={{
+      posts:searchedPosts,
+      onAddPost:handleAddPost,
+      onClearPosts:handleClearPosts,
+      searchQuery,
+      setSearchQuery
+    }}> 
     <section>
 <button onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)} className="btn-fake-dark-mode">
  
@@ -66,6 +75,7 @@ export default function App(){
     <Archive onAddPost={handleAddPost} />
     <Footer />
     </section>
+    </PostContext.Provider>
   )
 }
 
