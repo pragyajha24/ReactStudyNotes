@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import {createContext,useState,useEffect} from "react";
 import {faker} from "@faker-js/faker";
 
 function createRandomPost(){
@@ -8,7 +8,10 @@ function createRandomPost(){
   }
 }
 
+createContext()
+
 export default function App(){
+  //this callback function only runs at initial render, function under useState
   const [posts, setPosts] = useState(function(){
     return Array.from({length:30}, ()=> createRandomPost())
   });
@@ -20,18 +23,21 @@ export default function App(){
   const [isFakeDark , setIsFakeDark] = useState(false);
 
   //Derived state. These are the posts that will actually be displayed
+  //here post are filtered by the searchQuery that we can type
   function searchedPosts(){
     return searchQuery.length > 0 ? posts.filter(function(post){
       return `${post.title} ${post.body}`.toLowerCase().includes(searchQuery.toLowerCase())
     }) : posts;
   }
   
+  //event handler function to add a new post
   function handleAddPost(post){
     setPosts(function(posts){
       return [post,...posts]
     })
   }
 
+  //event handler function to clear post
   function handleClearPosts(){
     setPosts([]);
   }
