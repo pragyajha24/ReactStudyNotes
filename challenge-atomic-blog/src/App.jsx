@@ -1,4 +1,4 @@
-import {createContext,useState,useEffect} from "react";
+import {createContext,useState,useEffect,useContext} from "react";
 import {faker} from "@faker-js/faker";
 
 function createRandomPost(){
@@ -65,12 +65,7 @@ export default function App(){
 {isFakeDark ? "☀️" : "🌙"}
  </button>
 
-    <Header
-     posts={searchedPosts()} 
-     onClearPosts={handleClearPosts}
-    searchQuery={searchQuery} 
-    setSearchQuery={setSearchQuery}
-     />
+    <Header />
     <Main onAddPost={handleAddPost} posts={searchedPosts()} />
     <Archive onAddPost={handleAddPost} />
     <Footer />
@@ -79,26 +74,37 @@ export default function App(){
   )
 }
 
-function Header({posts,searchQuery,setSearchQuery,onClearPosts}){
+function Header(){
+
+  //3.CONSUMING CONTEXT VALUE
+  const {onClearPosts} = useContext(PostContext);
+
+
   return (
     <header> 
     <h1> <span>⚛️</span>The Atomic Blog </h1>
 
     <div>
-    <Results posts={posts} />
-    <SearchPosts searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <Results  />
+    <SearchPosts  />
     <button onClick={onClearPosts}>Clear posts </button>
      </div>
     </header>
   )
 }
 
-function Results({posts}){
+function Results(){
+
+  const {posts} = useContext(PostContext)
+
   return  <p> {posts.length} atomic posts found  </p>
 
 }
 
-function SearchPosts({searchQuery,setSearchQuery}){
+function SearchPosts(){
+
+  const {searchQuery,setSearchQuery} = useContext(PostContext)
+
   return (
     <input value={searchQuery} 
     onChange={(e) => setSearchQuery(e.target.value)}  placeholder="Search posts..."/>
